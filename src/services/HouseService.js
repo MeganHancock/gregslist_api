@@ -21,10 +21,16 @@ class HouseService {
         return createdHouse
     }
 
-    async updateHouse(houseId) {
+    async updateHouse(houseId, houseData) {
+        const houseToUpdate = await this.getHouseById(houseId)
 
+        houseToUpdate.price = houseData.price == undefined ? houseToUpdate.price : houseData.price
+        houseToUpdate.imgUrl = houseData.imgUrl || houseToUpdate.imgUrl
+        houseToUpdate.description = houseData.description || houseToUpdate.description
+
+        await houseToUpdate.save()
+        return houseToUpdate
     }
-
 }
 
 export const houseService = new HouseService()

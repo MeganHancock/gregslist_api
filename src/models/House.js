@@ -20,7 +20,7 @@ export const HouseSchema = new Schema({
     imgUrl: {
         type: String,
         required: true,
-        default: '//placehold.it/300x300'
+        // default: '//placehold.it/300x300'
     },
     description: {
         type: String,
