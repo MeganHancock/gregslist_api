@@ -3,8 +3,6 @@ import { BadRequest } from "../utils/Errors.js"
 
 class JobsService {
 
-
-
     async getJobs() {
         const jobs = await dbContext.Jobs.find()
         return jobs
@@ -22,6 +20,17 @@ class JobsService {
             throw new BadRequest(`There is no car that matched the ID of ${jobId}`)
         }
         return (job)
+    }
+
+    async updateJob(jobId, jobData) {
+        const jobToUpdate = await this.getJobById(jobId)
+
+        jobToUpdate.salary = jobData.salary == undefined ? jobToUpdate.salary : jobData.salary
+        jobToUpdate.requiresDegree = jobData.requiresDegree == undefined ? jobToUpdate.requiresDegree : jobData.requiresDegree
+        jobToUpdate.description = jobData.description || jobToUpdate.description
+
+        await jobToUpdate.save()
+        return jobToUpdate
     }
 
     async removeJob(jobId) {
