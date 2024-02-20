@@ -24,6 +24,11 @@ class JobsService {
         return (job)
     }
 
+    async removeJob(jobId) {
+        const jobToRemove = await this.getJobById(jobId)
+        await jobToRemove.deleteOne()
+        return `Job with ${jobToRemove} ID has been removed`
+    }
 }
 
 export const jobsService = new JobsService()

@@ -1,3 +1,4 @@
+import { houseService } from "../services/HouseService.js";
 import { jobsService } from "../services/JobsService.js";
 import BaseController from "../utils/BaseController.js";
 
@@ -8,6 +9,7 @@ export class JobsController extends BaseController {
             .get('', this.getJobs)
             .get('/:jobId', this.getJobById)
             .post('', this.createJob)
+            .delete('/:jobId', this.removeJob)
 
     }
 
@@ -49,6 +51,16 @@ export class JobsController extends BaseController {
             const jobId = request.params.jobId
             const foundJob = await jobsService.getJobById(jobId)
             response.send(foundJob)
+        } catch (error) {
+            next(error)
+        }
+    }
+
+    async removeJob(request, response, next) {
+        try {
+            const jobId = request.params.jobId
+            const message = await jobsService.removeJob(jobId)
+            response.send(message)
         } catch (error) {
             next(error)
         }
