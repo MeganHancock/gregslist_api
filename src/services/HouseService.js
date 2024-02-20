@@ -21,6 +21,10 @@ class HouseService {
         return createdHouse
     }
 
+    async updateHouse(houseId) {
+
+    }
+
 }
 
 export const houseService = new HouseService()

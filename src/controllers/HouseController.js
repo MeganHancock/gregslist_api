@@ -9,6 +9,7 @@ export class HouseController extends BaseController {
             .get('', this.getHouses)
             .get('/:houseId', this.getHouseById)
             .post('', this.createHouse)
+            .put('/:houseId', this.updateHouse)
     }
 
     /**
@@ -54,6 +55,17 @@ export class HouseController extends BaseController {
         } catch (error) {
             next(error)
         }
+    }
+
+    async updateHouse(request, response, next) {
+        try {
+            const houseId = request.params.houseId
+            const updatedHouse = await houseService.updateHouse(houseId)
+            response.send(updatedHouse)
+        } catch (error) {
+            next(error)
+        }
+
     }
 
 }
