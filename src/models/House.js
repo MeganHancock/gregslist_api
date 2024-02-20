@@ -1,6 +1,6 @@
 import { Schema } from "mongoose";
 
-const House = new Schema({
+export const HouseSchema = new Schema({
     bedrooms: {
         type: Number,
         required: true
