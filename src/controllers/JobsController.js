@@ -6,7 +6,9 @@ export class JobsController extends BaseController {
         super('api/jobs')
         this.router
             .get('', this.getJobs)
+            .get('/:jobId', this.getJobById)
             .post('', this.createJob)
+
     }
 
     /**
@@ -23,11 +25,30 @@ export class JobsController extends BaseController {
         }
     }
 
+    /**
+    * @param {import("express").Request} request
+    * @param {import("express").Response} response
+    * @param {import("express").NextFunction} next
+    */
     async createJob(request, response, next) {
         try {
             const jobData = request.body
             const createdJob = await jobsService.createJob(jobData)
             response.send(createdJob)
+        } catch (error) {
+            next(error)
+        }
+    }
+    /**
+    * @param {import("express").Request} request
+    * @param {import("express").Response} response
+    * @param {import("express").NextFunction} next
+    */
+    async getJobById(request, response, next) {
+        try {
+            const jobId = request.params.jobId
+            const foundJob = await jobsService.getJobById(jobId)
+            response.send(foundJob)
         } catch (error) {
             next(error)
         }
