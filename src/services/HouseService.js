@@ -31,6 +31,12 @@ class HouseService {
         await houseToUpdate.save()
         return houseToUpdate
     }
+
+    async removeHouse(houseId) {
+        const houseToRemove = await this.getHouseById(houseId)
+        await houseToRemove.deleteOne()
+        return 'House has been removed!'
+    }
 }
 
 export const houseService = new HouseService()
