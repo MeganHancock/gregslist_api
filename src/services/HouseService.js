@@ -3,7 +3,6 @@ import { BadRequest } from "../utils/Errors.js"
 
 class HouseService {
 
-
     async getHouses() {
         const houses = await dbContext.Houses.find()
         return houses
@@ -16,6 +15,12 @@ class HouseService {
         }
         return house
     }
+
+    async createHouse(houseData) {
+        const createdHouse = await dbContext.Houses.create(houseData)
+        return createdHouse
+    }
+
 }
 
 export const houseService = new HouseService()

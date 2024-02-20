@@ -33,3 +33,4 @@ export const HouseSchema = new Schema({
             virtuals: true
         }
     })
+
